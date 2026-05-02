@@ -1,1 +1,158 @@
-\newpage
+\section{PHÂN TÍCH YÊU CẦU HỆ THỐNG VÀ XÁC ĐỊNH CẤU TRÚC MẠNG PHÙ HỢP}
+
+\subsection{Phân tích yêu cầu hệ thống mạng của Trụ sở chính và hai chi nhánh phụ}
+Mô hình mạng của Bệnh viện được thiết kế theo kiến trúc phân tán, bao gồm một Trụ sở chính (Main Site) đóng vai trò đầu não và hai Chi nhánh phụ (Auxiliary Sites). Mỗi phân khu mang một đặc thù riêng về chức năng hoạt động và cấu trúc không gian, đòi hỏi một thiết kế mạng đảm bảo tính liên tục, bảo mật nghiêm ngặt và khả năng mở rộng linh hoạt.
+
+\subsubsection{Yêu cầu hạ tầng đối với Trụ sở chính (Main Site)}
+\begin{itemize}
+    \item \textbf{Cấu trúc không gian:} Trụ sở chính được cấu thành từ hai khối nhà độc lập là Tòa A và Tòa B. Mỗi tòa nhà được xây dựng với quy mô 5 tầng, mỗi tầng bao gồm 10 phòng ban chức năng. Toàn bộ các phòng đều được trang bị hệ thống máy tính, thiết bị y tế chuyên dụng và thiết bị ngoại vi để phục vụ công tác khám chữa bệnh.
+    \item \textbf{Khu vực trung tâm kỹ thuật:} Trung tâm dữ liệu (Data Center), phòng IT và phòng điều hành cáp (Cabling Central) được quy hoạch tại một khu vực biệt lập, cách hai tòa nhà chính khoảng 50 mét. Đây là "trái tim" của hệ thống, tập trung toàn bộ hạ tầng cốt lõi bao gồm máy chủ, tường lửa (firewall), Switch Core, Router trung tâm, hệ thống Patch Panel, nguồn điện dự phòng UPS và hệ thống điều hòa kiểm soát môi trường.
+    \item \textbf{Quy mô thiết bị và Công nghệ:} Hạ tầng mạng phải đáp ứng kết nối cho khoảng 600 máy trạm, 10 máy chủ trung tâm và ít nhất 12 thiết bị chuyển mạch/định tuyến. Mạng phải hỗ trợ khả năng tích hợp thêm các thiết bị bảo mật chuyên dụng trong tương lai. Về mặt công nghệ, hệ thống sử dụng mạng quang thụ động GPON kết hợp cùng chuẩn GigaEthernet (1/10/40 GbE). Môi trường mạng yêu cầu phủ sóng Wi-Fi toàn diện và áp dụng mô hình phân tách VLAN cho từng khu vực chức năng riêng biệt.
+    \item \textbf{Kết nối diện rộng (WAN):} Trụ sở chính kết nối với hai chi nhánh (tại đường DBP và BHTQ) thông qua hai kênh truyền thuê riêng (leased lines). Hệ thống phải tích hợp cơ chế cân bằng tải (load balancing) nhằm tối ưu băng thông và tạo dự phòng chống lỗi. Điểm lưu ý quan trọng là toàn bộ lưu lượng Internet của toàn hệ thống đều phải được định tuyến qua Trụ sở chính.
+    \item \textbf{Cơ chế bảo mật và An ninh:} Hạ tầng sử dụng kết hợp giữa phần mềm bản quyền và mã nguồn mở. Các lớp phòng thủ bao gồm Tường lửa (Firewall), hệ thống phát hiện và ngăn chặn xâm nhập (IDS/IPS), cùng các chính sách chống tấn công Phishing. Mạng được chia tách rõ ràng giữa vùng phi quân sự (DMZ) và mạng người dùng nội bộ. Đồng thời, hệ thống Camera giám sát IP được phủ rộng toàn bệnh viện, kết hợp cùng VPN Site-to-Site và VPN Teleworker để mã hóa luồng dữ liệu.
+\end{itemize}
+
+\subsubsection{Yêu cầu hạ tầng đối với Chi nhánh phụ (Auxiliary Sites)}
+\begin{itemize}
+    \item \textbf{Cấu trúc không gian:} Mỗi chi nhánh phụ có quy mô gồm 2 tầng hoạt động. Phòng IT và phòng Cáp trung tâm được thiết kế đặt tại tầng 1 để thuận tiện cho việc kéo cáp và quản lý.
+    \item \textbf{Quy mô thiết bị:} Mỗi cơ sở phụ tải mạng cho khoảng 260 máy trạm, 2 máy chủ cục bộ và tối thiểu 5 thiết bị mạng. Toàn bộ dữ liệu của chi nhánh được kết nối đồng bộ về Trụ sở chính thông qua hệ thống WAN.
+\end{itemize}
+
+\subsubsection{Các tiêu chuẩn chung về hiệu năng}
+\begin{itemize}
+    \item \textbf{Đặc tính lưu lượng:} Mạng phải chịu tải được 80\% tổng lưu lượng phát sinh trong ngày dồn vào các khung giờ cao điểm (từ 9h-11h sáng và 15h-16h chiều).
+    \item \textbf{Khả năng mở rộng:} Hạ tầng thiết kế phải dự trù khả năng tăng trưởng 20\% về quy mô người dùng và băng thông trong vòng 5 năm tới. Bắt buộc duy trì tính sẵn sàng cao (High Availability) và khả năng khắc phục thảm họa (Disaster Recovery) nhanh chóng.
+    \item \textbf{Thông số ước tính lưu lượng:} 
+    \begin{itemize}
+        \item Hệ thống máy chủ: Tải xuống (Download) 1000 MB/ngày, Tải lên (Upload) 2000 MB/ngày.
+        \item Máy trạm (Workstations): Tải xuống 500 MB/ngày, Tải lên 100 MB/ngày.
+        \item Thiết bị khách truy cập Wi-Fi: Tải xuống trung bình 500 MB/ngày.
+    \end{itemize}
+\end{itemize}
+
+\subsection{Đánh giá và Khảo sát thực tế}
+Việc khảo sát thực địa tại Trụ sở chính và hai chi nhánh phụ là bước bắt buộc để thu thập thông số môi trường triển khai. Các hạng mục khảo sát được tóm tắt trong bảng sau:
+
+
+\begin{longtable}{|c|>{\raggedright\arraybackslash}p{4cm}|>{\raggedright\arraybackslash}p{9cm}|}
+\hline
+\textbf{STT} & \textbf{Hạng mục khảo sát} & \textbf{Nội dung chính cần kiểm tra / ghi chú} \\ \hline
+
+% Xóa bỏ hoàn toàn phần \endfirsthead và \endhead ở đây
+
+1 & Thông tin chung & Người liên hệ tại site (tên, chức vụ, SĐT), sơ đồ mặt bằng, lịch triển khai, khu vực khảo sát cụ thể. \\ \hline
+2 & Thiết bị và điểm kết nối (Endpoints) & Số lượng máy trạm, thiết bị y tế, camera, Access Point hiện hữu, thiết bị sử dụng Wi-Fi khách. \\ \hline
+3 & Cơ sở hạ tầng vật lý & Phòng IT / Data Center, tủ rack, patch panel, cáp mạng hiện có, hệ thống điện UPS. \\ \hline
+4 & Cáp mạng và cáp quang & Loại cáp (Cat6, Fiber), số lượng sợi, đường đi giữa các tòa / tầng, khoảng cách ước tính, tình trạng thực tế. \\ \hline
+5 & Khảo sát Wi-Fi & Vị trí dự kiến đặt Access Point, vật cản (tường, thiết bị), khu vực cần phủ sóng mạnh (ICU, sảnh, phòng khám). \\ \hline
+6 & Mạng WAN / Internet & Đầu vào ISP, số lượng đường truyền, nhà cung cấp, loại kết nối (MPLS / Internet), thiết bị biên. \\ \hline
+7 & Bảo mật và quản trị & Camera, kiểm soát truy cập phòng IT, lưu trữ dữ liệu, xác thực người dùng, sao lưu cấu hình. \\ \hline
+8 & Điện và an toàn & Nguồn điện, UPS dự phòng, tiếp địa (grounding), nhiệt độ - độ ẩm, hệ thống báo cháy. \\ \hline
+9 & Ứng dụng và dịch vụ & Hệ thống HIS, PACS, mail, VoIP, dịch vụ cloud; yêu cầu backup, DR hoặc kết nối đặc biệt. \\ \hline
+10 & Ghi chú thêm & Chi phí dự kiến, hạn chế thương hiệu, yêu cầu hỗ trợ từ IT nội bộ, điều kiện thi công, kho chứa thiết bị. \\ \hline
+\end{longtable}
+
+\subsection{Định vị các khu vực có tải trọng mạng cao (Bottleneck Areas)}
+Căn cứ vào mô hình luân chuyển dữ liệu, các vùng sau đây được đánh giá là phải chịu áp lực xử lý đặc biệt lớn:
+\begin{itemize}
+    \item \textbf{Phòng trung tâm kỹ thuật (Cách 50m tại Main Site):} Khu vực này là nơi đặt toàn bộ máy chủ và Tường lửa (ASA) của Trụ sở chính. Khối lượng dữ liệu cực lớn đến từ hai tòa A và B, cộng với việc mọi gói tin trao đổi ra Internet đều phải đi qua Tường lửa ASA, khiến đây trở thành điểm tập trung tải trọng lớn nhất của toàn hệ thống.
+    \item \textbf{Hệ thống Multilayer Switch tại từng tòa nhà:} Tại mỗi tòa nhà (Tòa A và Tòa B), Multilayer Switch đóng vai trò là xương sống tiếp nhận lưu lượng từ các Access Switch của toàn bộ các tầng. Việc liên tục định tuyến khối lượng dữ liệu từ hàng trăm thiết bị y tế và người dùng tạo ra một mức tải vô cùng lớn.
+    \item \textbf{Hệ thống Multilayer Switch tại các chi nhánh:} Tương tự như Trụ sở chính, các Switch đa lớp tại chi nhánh không chỉ tổng hợp dữ liệu nội bộ liên tầng mà còn đảm nhận việc duy trì luồng giao tiếp liên tục với Trụ sở chính thông qua mạng WAN.
+\end{itemize}
+
+\indent Do đó, việc tối ưu hóa thiết kế, lựa chọn năng lực thiết bị phần cứng mạnh mẽ và áp dụng các thuật toán cân bằng tải tại các khu vực này là ưu tiên hàng đầu.
+
+\subsection{Mô hình kiến trúc mạng đề xuất}
+Hệ thống được thiết kế theo \textbf{Cấu trúc mạng hình sao (Star Topology)} kết hợp với \textbf{Mô hình 3 lớp (Three-tier Network Architecture)}.
+\begin{itemize}
+    \item \textbf{Ưu điểm của mô hình Hình sao:} Trong kiến trúc này, các nút mạng biên (Access layer) hoạt động hoàn toàn độc lập. Sự cố xảy ra tại một nút mạng sẽ được cô lập, không gây ảnh hưởng đến toàn bộ hệ thống (ngoại trừ lỗi phần cứng tại thiết bị trung tâm). Hệ thống này rất phù hợp với quy mô y tế do chịu tải nặng tốt và dễ dàng bổ sung thiết bị mới.
+    \item \textbf{Mô hình 3 lớp (Core, Distribution, Access):} Switch Core Layer 3 tại trung tâm chịu trách nhiệm cao nhất trong việc định tuyến và luân chuyển gói tin tốc độ cao giữa các VLAN.
+\end{itemize}
+\begin{figure}[H]
+    \centering
+    % Điều chỉnh [width=0.9\textwidth] để ảnh chiếm 90% chiều rộng trang giấy
+    % Thay "ten_anh_cua_ban.png" bằng tên file ảnh thực tế của bạn
+    \includegraphics[width=0.8\textwidth]{images/three-tier.png}
+    
+    % Tiêu đề của ảnh (giống với caption trong báo cáo mẫu)
+    \caption{Mô hình kiến trúc mạng 3 lớp (Three-tier Network Architecture).}
+    
+    % Nhãn để trích dẫn ảnh trong bài (Ví dụ: "Như được thể hiện trong Hình \ref{fig:three_tier}")
+    \label{fig:three_tier}
+\end{figure}
+\subsection{Thiết kế sử dụng mạng trong môi trường không dây, áp dụng tiêu chuẩn bảo mật và phân vùng hệ thống}
+
+\subsubsection{Tích hợp hệ thống Không dây (Wireless Integration)}
+\begin{itemize}
+    \item \textbf{Công nghệ Wi-Fi:} Triển khai hàng loạt Access Point (AP) chuẩn Wi-Fi 6. Mô hình \textit{Wireless Mesh} được áp dụng với việc tính toán vị trí AP chiến lược (hành lang, phòng khám, phòng lab) nhằm triệt tiêu vùng lõm sóng (dead zones), đảm bảo băng thông cao và độ trễ thấp.
+    \item \textbf{Phân mảnh mạng không dây:} Mỗi khu vực phát hai dải mạng SSID tách biệt:
+    \begin{itemize}
+        \item \textit{Staff Wi-Fi (VLAN 4):} Mạng nội bộ cho y bác sĩ, yêu cầu mã hóa WPA3 và xác thực người dùng tập trung.
+        \item \textit{Guest Wi-Fi (VLAN 5):} Mạng phục vụ bệnh nhân và khách vãng lai, được cô lập hoàn toàn với dữ liệu nội bộ và chỉ cho phép truy cập Internet.
+    \end{itemize}
+\end{itemize}
+
+\subsubsection{Phân vùng mạng VLAN và Quy hoạch dải IP}
+Hệ thống mạng được chia cắt thành các VLAN chuyên biệt dựa trên chức năng nghiệp vụ để giới hạn miền broadcast và tăng tính bảo mật. Trunking được cấu hình trên các cổng Uplink để điều phối nhiều subnet trên một cáp vật lý.
+\renewcommand{\arraystretch}{1.3} % Tăng khoảng cách giữa các hàng cho thoáng
+\begin{longtable}{|c|l|>{\raggedright\arraybackslash}p{9.5cm}|}
+% 1. Phần xuất hiện ở dòng đầu tiên của bảng (Trang đầu)
+\hline
+\textbf{VLAN ID} & \textbf{Tên VLAN} & \textbf{Mô tả chức năng} \\ \hline
+\endfirsthead
+
+% 2. Phần tiêu đề lặp lại ở các trang sau (Để trống theo yêu cầu của bạn)
+\endhead
+
+% 3. Phần chân bảng ở các trang bị ngắt (Kẻ đường chỉ ngang)
+\hline
+\endfoot
+
+% 4. Phần chân bảng ở trang cuối cùng (Chứa đường kẻ ngang và Caption)
+\hline
+\caption{Bảng phân chia VLAN theo chức năng trong hệ thống mạng bệnh viện}
+\label{tab:vlan_chuc_nang} \\
+\endlastfoot
+
+% 5. Nội dung dữ liệu của bảng
+2 & MEDICAL & Thiết bị y tế, máy móc phòng khám. \\ \hline
+3 & LABORATORY & Hệ thống xét nghiệm (LIS). \\ \hline
+4 & STAFF WIFI & Phục vụ truy cập không dây cho nhân viên y tế. \\ \hline
+5 & GUEST WIFI & Phục vụ truy cập không dây cho bệnh nhân và khách vãng lai. \\ \hline
+6 & STORAGE & Quản lý kho bãi và trang thiết bị vật tư. \\ \hline
+7 & PHARMACY & Quản lý hệ thống dược phẩm. \\ \hline
+8 & CCTV IOT & Kết nối cho hệ thống Camera an ninh và các cảm biến. \\ \hline
+9 & HOSPITALSOFTWARE & Dành cho hệ thống lưu trữ/truy xuất hình ảnh y khoa (PACS và RIS). \\ \hline
+10 & OFFICE & Dành cho khối hành chính, nhân sự, ban giám đốc. \\ \hline
+11 & MANAGEMENT & VLAN cô lập chỉ dành cho quản trị viên và cấu hình thiết bị mạng. \\
+\end{longtable}
+
+\subsubsection{Thiết lập vùng phi quân sự DMZ}
+Vùng DMZ được thiết lập để đặt các máy chủ cung cấp dịch vụ ra Internet (Web Server, Mail, VPN Gateway, FTP). Đây là vùng đệm cách ly: người dùng Internet có thể truy cập DMZ nhưng không thể từ DMZ xâm nhập ngược vào mạng nội bộ, giúp bảo vệ tài nguyên bệnh viện khi có rủi ro tấn công.
+
+\subsubsection{Giao thức đồng bộ VTP (VLAN Trunking Protocol)}
+Distribution Switch sẽ đóng vai trò như một VTP Server, quản lý và đồng bộ hóa thông tin VLAN xuyên suốt hệ thống Access Switch. Kết hợp với DHCP Server, địa chỉ IP được cấp phát tự động cho các máy trạm (Client) một cách đồng nhất, giúp loại bỏ các lỗi do cấu hình thủ công.
+
+\subsubsection{Giao thức định tuyến động OSPF}
+Hệ thống sử dụng OSPF (Open Shortest Path First) trong cùng một Area 0 (vùng xương sống - backbone) để kết nối các Router của Trụ sở và Chi nhánh. OSPF trao đổi các gói tin LSA, áp dụng thuật toán Dijkstra để liên tục cập nhật và tìm ra con đường ngắn nhất. Giải pháp này tối ưu băng thông, tự động phục hồi kết nối khi đứt cáp và hỗ trợ quy hoạch mạng hiệu quả (VLSM).
+
+\subsubsection{Thiết lập mạng riêng ảo (VPN Site-to-Site IPsec)}
+Để đảm bảo kênh truyền thông bảo mật qua hạ tầng Internet thay vì phụ thuộc hoàn toàn vào kênh WAN, hệ thống triển khai VPN IPsec.
+\begin{itemize}
+    \item \textbf{Giai đoạn 1 (Phase 1):} Trao đổi khóa và xác thực thông qua Pre-shared Key (ISAKMP SA).
+    \item \textbf{Giai đoạn 2 (Phase 2):} Mã hóa luồng dữ liệu bằng chuẩn AES và kiểm tra toàn vẹn bằng thuật toán HMAC-SHA. Chỉ những lưu lượng hợp lệ (dựa trên cấu hình ACL, ví dụ VLAN Management) mới được mã hóa và chui qua hầm VPN (VPN Tunnel).
+\end{itemize}
+
+\subsubsection{Triển khai hệ thống Tường lửa (Firewall ASA)}
+Cisco ASA Firewall được triển khai làm chốt chặn kiểm soát lưu lượng giữa mạng Inside (Nội bộ), DMZ và Outside (Internet). 
+\begin{itemize}
+    \item \textbf{Luồng dữ liệu:} Mặc định chỉ cho phép lưu lượng đi từ vùng bảo mật cao (Inside) ra vùng bảo mật thấp (Outside/DMZ). Luồng ngược lại phải tuân thủ nghiêm ngặt các quy tắc ACL.
+    \item \textbf{NAT (Network Address Translation):} Dải IP nội bộ và DMZ (ví dụ 10.0.10.0/24) được ẩn danh thông qua NAT động khi truy cập ra Internet.
+    \item Tường lửa hoạt động theo nguyên tắc đặc quyền tối thiểu (Least Privilege), đảm bảo an toàn tuyệt đối cho cơ sở dữ liệu y tế.
+\end{itemize}
+\subsubsection{Hệ thống mạng ngoài và CloudPT}
+Các router tại Site chính và hai Site phụ đều tham gia định tuyến OSPF với hệ
+thống mạng ngoài. Thành phần CloudPT đóng vai trò mô phỏng hạ tầng Internet,
+giúp kiểm thử kết nối WAN thực tế giữa các site.\\
+\indent Hệ thống này được giữ lại nhằm thể hiện khả năng mở rộng, bảo mật, và hoạt động
+của toàn bộ mô hình mạng khi triển khai thực tế trong môi trường bệnh viện.

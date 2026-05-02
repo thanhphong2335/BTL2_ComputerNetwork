@@ -1,9 +1,28 @@
+# Bỏ qua các file tạm và file build của LaTeX
 *.aux
+*.fdb_latexmk
+*.fls
 *.log
 *.out
-*.toc
-*.pdf
-*.gz
-*.fls
-*.fdb_latexmk
 *.synctex.gz
+*.toc
+
+# Bỏ qua file PDF (thường không nên push file PDF đã compile lên Git)
+*.pdf
+
+# Bỏ qua một số file tạm khác của LaTeX (dự phòng cho tương lai nếu bạn dùng thêm tính năng)
+*.bbl
+*.blg
+*.brf
+*.lof
+*.lot
+*.nav
+*.snm
+*.vrb
+*.bcf
+*.run.xml
+
+# Bỏ qua file cấu hình của các editor (nếu có dùng)
+.vscode/
+.idea/
+*.swp

@@ -1,105 +1,75 @@
 
-\usepackage{a4wide,amssymb,epsfig,latexsym,multicol,array,hhline,fancyhdr}
-\usepackage[T2A,T5]{fontenc}
-\usepackage[utf8]{inputenc}
-\usepackage{amsmath}
-\usepackage{lastpage}
-\usepackage[lined,boxed,commentsnumbered]{algorithm2e}
-\usepackage{enumerate}
-\usepackage{color}
-\usepackage{graphicx}							% Standard graphics package
-\usepackage{array}
-\usepackage{tabularx, caption}
-\usepackage{tabularx}
-\usepackage{multirow}
+\usepackage[utf8]{vietnam}
+\usepackage{amssymb,gensymb,textcomp} 
+\usepackage{array,multicol,multirow,siunitx,tabularx}
+\usepackage{graphicx} 
+\usepackage{float}
+\usepackage{placeins}
 \usepackage{multicol}
-\usepackage{rotating}
-\usepackage{graphics}
-\usepackage{geometry}
-\usepackage{setspace}
-\usepackage{epsfig}
-\usepackage{tikz}
-\usetikzlibrary{arrows,backgrounds}
-\usepackage{hyperref}
-\usepackage{subcaption}
-\def\thesislayout{	% A4: 210 × 297
-	\geometry{
-		a4paper,
-		total={160mm,240mm},  % fix over page
-		left=30mm,
-		top=30mm,
-	}
-}
-\setlength{\parindent}{0pt}
-
-\hypersetup{urlcolor=blue,linkcolor=black,citecolor=black,colorlinks=true} 
-%\usepackage{pstcol} 								% PSTricks with the standard color package
-
-\newtheorem{theorem}{{\bf Theorem}}
-\newtheorem{property}{{\bf Property}}
-\newtheorem{proposition}{{\bf Proposition}}
-\newtheorem{corollary}[proposition]{{\bf Corollary}}
-\newtheorem{lemma}[proposition]{{\bf Lemma}}
-
-\AtBeginDocument{\renewcommand*\contentsname{Mục lục}}
-\AtBeginDocument{\renewcommand*\refname{Nguồn tham khảo}}
-%\usepackage{fancyhdr}
-\setlength{\headheight}{40pt}
-\pagestyle{fancy}
-\fancyhead{} % clear all header fields
-\fancyhead[L]{
- \begin{tabular}{rl}
-    \begin{picture}(25,15)(0,0)
-    \put(0,-8){\includegraphics[width=8mm, height=8mm]{Images/bachkhoa_logo.png}}
-    %\put(0,-8){\epsfig{width=10mm,figure=hcmut.eps}}
-   \end{picture}&
-	%\includegraphics[width=8mm, height=8mm]{hcmut.png} & %
-	\begin{tabular}{l}
-		\textbf{\bf \ttfamily Trường Đại Học Bách khoa, TP Hồ Chí Minh}\\
-		\textbf{\bf \ttfamily Khoa Khoa học và Kỹ thuật Máy tính}
-	\end{tabular} 	
- \end{tabular}
-}
-\fancyhead[R]{
-	\begin{tabular}{l}
-		\tiny \bf \\
-		\tiny \bf 
-	\end{tabular}  }
-\fancyfoot{} % clear all footer fields
-\fancyfoot[L]{\scriptsize \ttfamily Báo cáo BTL2 - Học kỳ 252}
-\fancyfoot[R]{\scriptsize \ttfamily Trang {\thepage}/\pageref{LastPage}}
-\renewcommand{\headrulewidth}{0.3pt}
-\renewcommand{\footrulewidth}{0.3pt}
-
-
-%%%
-\setcounter{secnumdepth}{4}
-\setcounter{tocdepth}{3}
-\makeatletter
-\newcounter {subsubsubsection}[subsubsection]
-\renewcommand\thesubsubsubsection{\thesubsubsection .\@alph\c@subsubsubsection}
-\newcommand\subsubsubsection{\@startsection{subsubsubsection}{4}{\z@}%
-                                     {-3.25ex\@plus -1ex \@minus -.2ex}%
-                                     {1.5ex \@plus .2ex}%
-                                     {\normalfont\normalsize\bfseries}}
-\newcommand*\l@subsubsubsection{\@dottedtocline{3}{10.0em}{4.1em}}
-\newcommand*{\subsubsubsectionmark}[1]{}
-\makeatother
-% The package belong to this particular document.
-\usepackage{xcolor}
+\usepackage{multirow}
+\usepackage{adjustbox}
+\usepackage{lipsum}
+\usepackage{makecell}
+\usepackage{enumerate}
+\usepackage{longtable}
+\usepackage{indentfirst}
+\usepackage{amsmath} 
 \usepackage{listings}
-\definecolor{mGreen}{rgb}{0,0.7,0}
-\definecolor{mGray}{rgb}{0.5,0.5,0.5}
-\definecolor{mPurple}{rgb}{0.5,0,0.35} % Adjusted to a purple shade
-\definecolor{backgroundColour}{rgb}{0.97,0.97,0.97} % Adjusted to a lighter shade
-
-\lstdefinestyle{CStyle}{
-    backgroundcolor=\color{backgroundColour} ,   
-    commentstyle=\color{mGreen},
-    keywordstyle=\color{red},
-    numberstyle=\tiny\color{mGray},
-    stringstyle=\color{mPurple},
-    basicstyle=\footnotesize,
+\usepackage{diagbox}
+\usepackage{matlab-prettifier}
+\usepackage{xcolor}
+\usepackage{color}
+\definecolor{light-gray}{gray}{0.95}
+\newcommand{\code}[1]{\colorbox{light-gray}{\texttt{#1}}}
+\usepackage[small]{titlesec}
+\usepackage{amsfonts} 
+\usepackage{caption}
+\usepackage{tabularx}
+\usepackage{subcaption}
+\usepackage{tikz}
+\captionsetup{
+    font=small,           
+    labelfont=bf,        
+    labelsep=colon,       
+    justification=centering,
+}
+\usepackage{rotating}
+\usepackage{tikz}
+\usepackage[colorlinks = true,
+            linkcolor = black,
+            urlcolor  = blue,
+            citecolor = blue,
+            anchorcolor = blue]{hyperref}
+\usepackage{enumitem}
+\usepackage[left=2cm,right=2cm,top=2.5cm,bottom=2.5cm]{geometry} 
+\usepackage{scrextend}
+\usepackage{algorithm2e}
+\usepackage{etoolbox}
+\usepackage{ragged2e}
+\usepackage{minted}
+\usepackage{lastpage}
+\changefontsizes[23pt]{13pt}
+\usepackage{fancyhdr}
+\usepackage{tikz,tkz-tab}
+\usetikzlibrary{shapes.geometric, arrows}
+\usepackage[framemethod=TikZ]{mdframed}
+\usepackage{amsthm}
+\usepackage{xurl}
+\usepackage{commath}
+\usepackage{framed}
+\usepackage{commath}
+\usepackage{framed}
+\usepackage{enumitem}
+\usepackage{booktabs}
+% Cấu hình cho listings
+\lstset{
+    language=C,
+    backgroundcolor=\color{backcolour},   
+    commentstyle=\color{codegreen},
+    keywordstyle=\color{magenta},
+    numberstyle=\tiny\color{codegray},
+    stringstyle=\color{codepurple},
+    basicstyle=\ttfamily\footnotesize,
     breakatwhitespace=false,         
     breaklines=true,                 
     captionpos=b,                    
@@ -109,9 +79,39 @@
     showspaces=false,                
     showstringspaces=false,
     showtabs=false,                  
-    tabsize=2,
-    language=C
+    tabsize=2
 }
-
+% Chỉnh màu
+\definecolor{codegreen}{rgb}{0,0.6,0}
+\definecolor{codegray}{rgb}{0.5,0.5,0.5}
+\definecolor{codepurple}{rgb}{0.58,0,0.82}
+\definecolor{backcolour}{rgb}{0.95,0.95,0.92}
+\renewcommand{\lstlistingname}{}
+\usepackage{listings}
+\DeclareCaptionFormat{listing}{\centering\normalsize#3}
+\usepackage{titlesec}
+\usepackage{url}
+\usepackage{anyfontsize}
+\setlength{\headheight}{38.2pt}
+\setlength{\headsep}{20pt}
+\setlength{\footskip}{30pt}
+\renewcommand{\footrulewidth}{0.4pt} 
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+\fancyhf{} % clear all header fields
+\fancyhead[L]{
+ \begin{tabular}{rl}
+    \begin{picture}(15,15)(0,0)
+    \put(0,-8){\includegraphics[width=8.7mm, height=8.7mm]{Images/bachkhoa_logo.png}}
+   \end{picture}&
+	\begin{tabular}{l}
+		\textbf{\bf \ttfamily ĐẠI HỌC BÁCH KHOA - ĐHQG HCM}
+             \\[-1.4ex] \textbf{\bf \ttfamily KHOA KHOA HỌC VÀ KỸ THUẬT MÁY TÍNH} 
+	\end{tabular} 
+ \end{tabular}
+}
+\fancyfoot{} % clear all footer fields
+\fancyfoot[L]{\footnotesize \ttfamily {Assignment 2 - HK252}}
+\fancyfoot[R]{\footnotesize \ttfamily {Trang {\thepage}/{\hypersetup{}\pageref{LastPage}}}}
 
 \endinput
