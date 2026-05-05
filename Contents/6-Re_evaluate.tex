@@ -1,1 +1,30 @@
-\newpage
+\section{ĐÁNH GIÁ HỆ THỐNG}
+
+\subsection{Độ tin cậy}
+Hệ thống mạng được triển khai theo mô hình hình sao (Star Topology), tập trung định tuyến vào một số thiết bị chuyển mạch cốt lõi. Mặc dù dễ quản lý, thiết kế này lại tạo ra các điểm lỗi đơn lẻ (Single Point of Failure); nếu một thiết bị trung tâm gặp sự cố, toàn bộ phân đoạn mạng phía sau sẽ bị gián đoạn. Hiện tại, hệ thống định tuyến VLAN vẫn phụ thuộc nhiều vào cấu hình one-armed router, chưa có giải pháp sao lưu gói tin, chưa dự phòng đường truyền vật lý, và thiếu cơ chế sẵn sàng cao (High Availability - HA).
+
+\subsection{Khả năng nâng cấp}
+Một số thiết bị phần cứng trong mô hình thuộc dòng Cisco cũ (legacy), không còn được nhà sản xuất hỗ trợ cập nhật firmware hoặc các bản vá bảo mật. Điều này gây trở ngại lớn cho việc mở rộng và tích hợp các công nghệ mạng tiên tiến như IPv6, SD-WAN, hay cân bằng tải đa tuyến. Để đảm bảo khả năng nâng cấp dài hạn, hệ thống cần có lộ trình thay thế bằng các thiết bị hỗ trợ chuẩn 10GbE/40GbE và có khả năng quản trị tập trung qua giao diện Web hoặc giao thức SNMPv3.
+
+\subsection{Phần mềm và Công cụ hỗ trợ}
+Việc vận hành mạng hiện tại chủ yếu phụ thuộc vào các công cụ quản lý cục bộ tích hợp sẵn trên thiết bị. Việc chưa triển khai đồng bộ các giải pháp giám sát mạng chuyên nghiệp (như Zabbix, PRTG, hay SolarWinds) làm hạn chế khả năng thống kê, phân tích hiệu năng và cảnh báo sự cố theo thời gian thực. Hơn nữa, các thao tác bảo trì, cấu hình và sao lưu vẫn phải thực hiện hoàn toàn thủ công do thiếu vắng các công cụ tự động hóa.
+
+\subsection{An toàn và bảo mật mạng}
+Hệ thống hiện chỉ thiết lập vùng DMZ tại Trụ sở chính (Main Site), trong khi các chi nhánh đặt máy chủ nội bộ phía sau tường lửa, điều này làm giảm tính linh hoạt nếu muốn chia sẻ tải công việc trực tiếp giữa các cơ sở. Dù vậy, tường lửa ASA vẫn đang hoạt động tốt và tuân thủ đúng chính sách bảo mật cơ bản: cho phép các thiết bị nội bộ ping ra Internet nhưng chặn hoàn toàn các kết nối xâm nhập trái phép từ bên ngoài (bao gồm cả truy cập của teleworker). Tuy nhiên, để đạt độ an toàn tối đa, hệ thống cần được bổ sung các cơ chế bảo mật chiều sâu như Next-Generation Firewall hay IDS/IPS.
+
+\subsection{Các vấn đề còn tồn tại}
+Nhìn chung, cấu trúc mạng hiện tại đang đối mặt với hai vấn đề chính cần khắc phục:
+\begin{itemize}
+    \item Hệ thống chưa có cơ chế chuyển đổi dự phòng (Failover) tự động để đảm bảo kết nối liên tục khi thiết bị phần cứng xảy ra sự cố.
+    \item Thiếu một nền tảng giám sát mạng tập trung (Network Monitoring System) để bao quát toàn bộ hạ tầng cơ sở vật chất.
+\end{itemize}
+
+\subsection{Định hướng phát triển trong tương lai}
+Để đáp ứng tốc độ số hóa và quy mô của bệnh viện, trong giai đoạn tiếp theo, hệ thống cần được nâng cấp toàn diện theo các hướng sau:
+\begin{itemize}
+    \item \textbf{Tối ưu hóa đường truyền:} Triển khai công nghệ SD-WAN để quản lý linh hoạt và định tuyến thông minh lưu lượng giữa các chi nhánh.
+    \item \textbf{Tính sẵn sàng cao:} Xây dựng cấu hình High Availability (HA) và cân bằng tải (Load Balancing) cho các thiết bị trọng yếu.
+    \item \textbf{Giám sát chủ động:} Áp dụng các phần mềm giám sát mạng tập trung (Zabbix, PRTG) nhằm phát hiện và xử lý sự cố trước khi chúng ảnh hưởng đến người dùng.
+    \item \textbf{Nâng cấp phần cứng:} Loại bỏ dần các thiết bị lỗi thời, chuyển sang hạ tầng hỗ trợ toàn diện IPv6, QoS nâng cao và công nghệ Clustering.
+    \item \textbf{Tăng cường bảo mật:} Củng cố lớp phòng thủ bằng Next-Generation Firewall, hệ thống phát hiện/ngăn chặn xâm nhập (IDS/IPS) và thiết lập mạng riêng ảo VPN Site-to-Site đồng bộ.
+\end{itemize}
