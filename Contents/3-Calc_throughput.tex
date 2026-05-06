@@ -1,1 +1,120 @@
-\newpage
+\setcounter{section}{2}
+\section{Tính toán thông lượng yêu cầu và băng thông cần thuê từ ISP}
+
+\subsection{Giả định và dữ liệu đầu vào}
+
+Dựa theo đề bài, ta dùng các giả định sau (ghi rõ để dễ kiểm toán):
+\begin{itemize}[leftmargin=*, itemsep=2pt]
+  \item \textbf{Main Site:} 600 workstation. Mỗi workstation: $\mathrm{DL} = 500$\,MB/day, $\mathrm{UL} = 100$\,MB/day.
+  \item \textbf{Servers (tổng toàn hệ):} $\mathrm{DL_{srv}} = 1{,}000$\,MB/day, $\mathrm{UL_{srv}} = 2{,}000$\,MB/day.
+  \item \textbf{Wi-Fi khách} (mỗi site): $\mathrm{DL_{wifi}} = 500$\,MB/day.
+  \item \textbf{Mỗi Auxiliary Site (DBP, BHTQ):} 260 workstation và Wi-Fi khách 500\,MB/day.
+  \item \textbf{Giờ cao điểm:} 80\% tổng lưu lượng tập trung vào 9:00--11:00 (2\,h) và 15:00--16:00 (1\,h) $\Rightarrow$ tổng \textbf{3 giờ peak} mỗi ngày.
+  \item Hệ hoạt động 24 giờ/ngày ($86{,}400$\,giây). Quy ước: $1\,\text{MB} = 8\,\text{Mbits}$; kết quả biểu diễn bằng \textbf{Mbps}.
+  \item \textbf{Dự phòng tăng trưởng:} $+20\%$ cho 5 năm sau.
+\end{itemize}
+
+\subsection{Tính tổng lưu lượng (MB/day)}
+Chi tiết phân bổ lưu lượng cho từng phân vùng mạng được tính toán như sau:
+
+\vspace{0.2cm}
+\noindent \textbf{1. Trụ sở chính (Main Site)}
+\vspace{-0.4cm}
+\begin{align*}
+  \mathrm{DL_{ws}} &= 600 \times 500 = 300{,}000\ \text{MB/day}, \quad \mathrm{UL_{ws}} = 600 \times 100 = 60{,}000\ \text{MB/day} \\
+  \mathrm{DL_{srv}} &= 1{,}000\ \text{MB/day}, \quad \mathrm{UL_{srv}} = 2{,}000\ \text{MB/day}, \quad \mathrm{DL_{wifi}} = 500\ \text{MB/day} \\
+  \Rightarrow\quad \mathrm{DL_{main}} &= 300{,}000 + 1{,}000 + 500 = \mathbf{301{,}500}\ \text{MB/day} \\
+  \mathrm{UL_{main}} &= 60{,}000 + 2{,}000 = \mathbf{62{,}000}\ \text{MB/day}
+\end{align*}
+
+\vspace{0.2cm}
+\noindent \textbf{2. Mỗi Auxiliary Site}
+\vspace{-0.4cm}
+\begin{align*}
+  \mathrm{DL_{aux}} &= 260 \times 500 + 500 = \mathbf{130{,}500}\ \text{MB/day} \\
+  \mathrm{UL_{aux}} &= 260 \times 100 = \mathbf{26{,}000}\ \text{MB/day}
+\end{align*}
+
+\vspace{0.2cm}
+\noindent \textbf{3. Hai Auxiliary Site cộng lại}
+\vspace{-0.4cm}
+\begin{align*}
+  \mathrm{DL_{2aux}} &= 2 \times 130{,}500 = 261{,}000\ \text{MB/day} \\
+  \mathrm{UL_{2aux}} &= 2 \times 26{,}000 = 52{,}000\ \text{MB/day}
+\end{align*}
+
+\vspace{0.2cm}
+\noindent \textbf{4. Tổng toàn hệ thống}
+\vspace{-0.4cm}
+\begin{align*}
+  \mathrm{DL_{total}} &= 301{,}500 + 261{,}000 = \mathbf{562{,}500}\ \text{MB/day} \\
+  \mathrm{UL_{total}} &= 62{,}000 + 52{,}000 = \mathbf{114{,}000}\ \text{MB/day}
+\end{align*}
+
+\subsection{Chuyển đổi sang băng thông (Mbps)}
+Áp dụng công thức quy đổi từ dung lượng (MB/day) sang băng thông đường truyền (Mbps):
+
+\vspace{0.2cm}
+\noindent \textbf{1. Băng thông trung bình} \\
+Công thức: $\displaystyle\text{Mbps} = \dfrac{\text{MB/day} \times 8}{86{,}400}$
+\vspace{-0.4cm}
+\begin{align*}
+  \mathrm{DL_{avg}} &= \frac{562{,}500 \times 8}{86{,}400} \approx \mathbf{52.08\ \text{Mbps}}, \quad
+  \mathrm{UL_{avg}} = \frac{114{,}000 \times 8}{86{,}400} \approx \mathbf{10.56\ \text{Mbps}}
+\end{align*}
+
+\vspace{0.2cm}
+\noindent \textbf{2. Băng thông giờ cao điểm (80\% tổng lưu lượng dồn trong 3 giờ)} \\
+Công thức: $\displaystyle\text{Peak (Mbps)} = \dfrac{0.8 \times \text{MB/day} \times 8}{3 \times 3{,}600}$
+\vspace{-0.4cm}
+\begin{align*}
+  \mathrm{Peak\ DL} &= \frac{0.8 \times 562{,}500 \times 8}{10{,}800} \approx \mathbf{333.33\ \text{Mbps}} \\
+  \mathrm{Peak\ UL} &= \frac{0.8 \times 114{,}000 \times 8}{10{,}800} \approx \mathbf{67.56\ \text{Mbps}}
+\end{align*}
+
+\subsection{Dự phòng tăng trưởng (20\% sau 5 năm)}
+Căn cứ vào băng thông đỉnh (Peak) hiện tại, mức yêu cầu sau 5 năm được dự phóng:
+\vspace{-0.4cm}
+\begin{align*}
+  \mathrm{Peak\ DL_{5yr}} &= 333.33 \times 1.2 \approx \mathbf{400.00\ \text{Mbps}} \\
+  \mathrm{Peak\ UL_{5yr}} &= 67.56 \times 1.2 \approx \mathbf{81.07\ \text{Mbps}}
+\end{align*}
+
+\subsection{Kết luận và khuyến nghị băng thông ISP}
+
+{
+    \small
+    \renewcommand{\arraystretch}{1.3}
+    \begin{longtable}{lcc}
+        \caption{Tóm tắt kết quả tính toán băng thông} \\
+        \toprule
+        \textbf{Chỉ tiêu} & \textbf{Download} & \textbf{Upload} \\
+        \midrule
+        \endfirsthead
+        
+        \endhead
+
+        \endfoot
+
+        \bottomrule
+        \endlastfoot
+
+        Băng thông trung bình        & 52.08~Mbps           & 10.56~Mbps \\
+        Peak hiện tại (3~h, 80\%)   & 333.33~Mbps          & 67.56~Mbps \\
+        Sau dự phòng 5 năm (+20\%)  & \textbf{400.00~Mbps} & \textbf{81.07~Mbps} \\
+    \end{longtable}
+}
+
+\vspace{0.2cm}
+\noindent \textbf{Ý nghĩa:} Khi thiết kế liên kết ISP và thiết bị core (router, firewall), cần dùng \textbf{giá trị peak có dự phòng}, không dùng trung bình để tránh nghẽn cổ chai trong giờ cao điểm.
+
+\vspace{0.4cm}
+\noindent \textbf{Đề xuất băng thông thuê:}
+\begin{enumerate}[leftmargin=*, label=\textbf{\arabic*.}]
+  \item \textbf{Tối thiểu hợp lý:} thuê \textbf{400~Mbps down} và \textbf{82~Mbps up}.
+  \item \textbf{Khuyến nghị an toàn:} thuê \textbf{1~Gbps symmetric (primary)} tại Main Site, dùng $2\times$ DSL làm backup/load-balance.
+  \item \textbf{WAN giữa Main và mỗi Auxiliary:} 200--500~Mbps (SD-WAN hoặc MPLS).
+\end{enumerate}
+
+\vspace{0.4cm}
+\noindent \textbf{Vận hành:} Áp dụng \textbf{caching}, lên lịch backup \emph{ngoài} giờ peak (9:00--11:00, 15:00--16:00), và \textbf{QoS} ưu tiên EMR/PACS/VoIP để đảm bảo chất lượng dịch vụ lâm sàng.

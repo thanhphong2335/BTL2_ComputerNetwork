@@ -1,15 +1,35 @@
 \documentclass[a4paper]{article}
 \usepackage{hcmut}
+% Khai báo tcolorbox với tham số [most] để load toàn bộ thư viện nâng cao (đổ bóng, vẽ viền, box title,...)
+\usepackage[most]{tcolorbox} 
+\usepackage{xcolor}
+\usepackage{geometry}
+\usepackage{amsmath}
+\usepackage{booktabs}
+\usepackage{array}
+\usepackage{colortbl}
+\usepackage{fancyhdr}
+\usepackage{titlesec}
+\usepackage{enumitem}
+\usepackage{hyperref}
+\usepackage{float}
 
+
+
+\definecolor{lightblue}{RGB}{220,235,250}
+\definecolor{rowgray}{RGB}{245,245,245}
+% Định nghĩa các màu dùng cho các Style
+\definecolor{bkblue}{RGB}{0, 85, 164}    % Dùng cho Cách 1
+\definecolor{darkgray}{RGB}{50, 50, 50}  % Dùng cho Cách 3
 \begin{document}
 \include{coverpage}
 \newpage
 \tableofcontents
-% \include{Sections/1-Title}
-\include{Contents/1-Network_structure_requirement}
-\include{Contents/2-List_equip_IPplan_wiringdiagram}
-\include{Contents/3-Calc_throughput}
-\include{Contents/4-Design_NWmap}
-\include{Contents/5-Test_system}
-\include{Contents/6-Re_evaluate}
+% \input{Sections/1-Title}
+\input{Contents/1-Network_structure_requirement}
+\input{Contents/2-List_equip_IPplan_wiringdiagram}
+\input{Contents/3-Calc_throughput}
+\input{Contents/4-Design_NWmap}
+\input{Contents/5-Test_system}
+\input{Contents/6-Re_evaluate}
 \end{document}
